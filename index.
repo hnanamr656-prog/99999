@@ -1,0 +1,69 @@
+import tkinter as tk
+import webbrowser
+import random
+
+text = "في يوم هنعود ده بينا وعود وفي غيابه أكيد لسه الأمل موجود"
+
+YOUTUBE_URL = "https://www.youtube.com/watch?v=FirJe3W2Lf8"
+
+class KaraokeApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.geometry("1200x450")
+        self.root.title("Miro Studio - Karaoke")
+        
+        self.colors_bg = ["#000000", "#111111", "#1a1a1a", "#0d0d0d"]
+        self.colors_text = ["#ffffff", "#ffcc00", "#00ffff", "#ff66cc", "#66ff66"]
+
+        self.bg_index = 0
+
+        self.frame = tk.Frame(root, bg="black")
+        self.frame.pack(fill="both", expand=True)
+
+        self.label = tk.Label(
+            self.frame,
+            text="اضغطي تشغيل 🎤",
+            font=("Arial", 42, "bold"),
+            fg="white",
+            bg="black"
+        )
+        self.label.pack(expand=True)
+
+        self.btn = tk.Button(
+            self.frame,
+            text="▶ تشغيل الأغنية",
+            font=("Arial", 18, "bold"),
+            command=self.start
+        )
+        self.btn.pack(pady=20)
+
+        self.index = 0
+
+        self.animate_background()
+
+    def start(self):
+        webbrowser.open(YOUTUBE_URL)
+        self.btn.destroy()
+        self.type_text()
+
+    # تأثير الخلفية المتحركة
+    def animate_background(self):
+        color = random.choice(self.colors_bg)
+        self.frame.config(bg=color)
+        self.label.config(bg=color)
+        self.root.after(800, self.animate_background)
+
+    # كتابة حرف حرف
+    def type_text(self):
+        if self.index <= len(text):
+            shown = text[:self.index]
+            self.label.config(
+                text=shown,
+                fg=random.choice(self.colors_text)
+            )
+            self.index += 1
+            self.root.after(100, self.type_text)
+
+root = tk.Tk()
+app = KaraokeApp(root)
+root.mainloop()
