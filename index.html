@@ -2,46 +2,65 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Miro Studio Karaoke</title>
+<title>❤️ Love Page</title>
 
 <style>
 body {
+  margin: 0;
   background: black;
   color: white;
-  text-align: center;
-  font-size: 40px;
-  margin-top: 20%;
   font-family: Arial;
+  text-align: center;
+  overflow: hidden;
+}
+
+h1 {
+  margin-top: 20%;
+  font-size: 40px;
+  color: #ff4d6d;
 }
 
 button {
-  font-size: 20px;
-  padding: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.heart {
+  position: absolute;
+  color: red;
+  animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+  0% {transform: translateY(-10%); opacity: 1;}
+  100% {transform: translateY(110vh); opacity: 0;}
 }
 </style>
 </head>
 
 <body>
 
-<div id="text">اضغطي تشغيل 🎤</div>
-<br>
-<button onclick="start()">▶ تشغيل</button>
+<h1>أنا بحبك ❤️</h1>
+
+<button onclick="showLove()">اضغط هنا</button>
 
 <script>
-let text = "في يوم هنعود ده بينا وعود وفي غيابه أكيد لسه الأمل موجود";
-let i = 0;
+function showLove(){
+  alert("بحبك جدًا ❤️");
 
-function start(){
-  window.open("https://www.youtube.com/watch?v=FirJe3W2Lf8");
-
-  let interval = setInterval(() => {
-    document.getElementById("text").innerHTML = text.slice(0, i);
-    i++;
-
-    if(i > text.length){
-      clearInterval(interval);
-    }
-  }, 120);
+  for(let i=0;i<30;i++){
+    let heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.className = "heart";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = Math.random()*30 + 10 + "px";
+    document.body.appendChild(heart);
+  }
 }
 </script>
 
